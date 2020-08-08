@@ -18,6 +18,12 @@ public class SelectionTest {
      * 3、假设第三个数为最小数，... 然后将 真正的最小数 交换到第三个位置
      * ...
      *
+     * 分析：
+     * 使用双层for循环，外层完成数据交互，里层循环完成数据比较
+     * 比较次数：(N-1) + (N-2) + (N-3) + ... + 2 + 1 = ((N-1) + 1) * (N-1) / 2 = N^2 / 2 - N/2
+     * 交换次数：N-1
+     * time: N^2 / 2+N / 2-1 -> O(N^2)
+     *
      * @param args
      */
     public static void main(String[] args) {
