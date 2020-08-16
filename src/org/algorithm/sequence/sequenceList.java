@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * @Author caopz
  * @Date 2020/8/16
- * @Description: 序列表
+ * @Description: 顺序表
  */
 public class sequenceList<T> implements Iterable<T> {
 
@@ -59,6 +59,10 @@ public class sequenceList<T> implements Iterable<T> {
      * @param t
      */
     public void insert(T t) {
+        // 校验数组长度
+        if (this.len == this.list.length) {
+            reSize(2 * this.list.length);
+        }
         this.list[this.len++] = t;
     }
 
@@ -69,13 +73,16 @@ public class sequenceList<T> implements Iterable<T> {
      * @param n
      */
     public void insert(T t, int n) {
-        // 7 5 1 6 9
+        // 校验数组长度
+        if (this.len == this.list.length) {
+            reSize(2 * this.list.length);
+        }
         for (int index = this.len - 1; index > n; index--) {
             this.list[index] = this.list[index - 1];
         }
         this.list[n] = t;
         // 增加元素个数
-        this.len ++;
+        this.len++;
     }
 
     /**
@@ -92,6 +99,10 @@ public class sequenceList<T> implements Iterable<T> {
         }
         // 去除一个长度
         this.len--;
+        // 检验长度
+        if (this.len < this.list.length / 4) {
+            reSize(this.list.length / 2);
+        }
         return result;
     }
 
@@ -110,6 +121,23 @@ public class sequenceList<T> implements Iterable<T> {
         return -1;
     }
 
+    /**
+     * 扩展数组长度
+     *
+     * @param size
+     */
+    public void reSize(int size) {
+        // 获取到原始的数据
+        T[] temp = this.list;
+        // 扩容数据
+        this.list = (T[]) new Object[size];
+        // 转移原来的的数据
+        for (int i = 0; i < this.len; i++) {
+            this.list[i] = temp[i];
+        }
+    }
+
+
     @Override
     public Iterator<T> iterator() {
         return new SIterable();
@@ -124,22 +152,22 @@ public class sequenceList<T> implements Iterable<T> {
         /**
          * 下标
          */
-        private int cusor;
+        private int cursor;
 
         private SIterable() {
             // 从第一个元素开始遍历
-            this.cusor = 0;
+            this.cursor = 0;
         }
 
         @Override
         public boolean hasNext() {
             // 如果小于长度说明还有元素
-            return cusor < len;
+            return cursor < len;
         }
 
         @Override
         public Object next() {
-            return list[cusor++];
+            return list[cursor++];
         }
 
     }

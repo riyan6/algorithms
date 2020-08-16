@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * @Author caopz
  * @Date 2020/8/16
- * @Description:序列表 测试
+ * @Description:顺序表 测试
  */
 public class sequenceListTest {
 
