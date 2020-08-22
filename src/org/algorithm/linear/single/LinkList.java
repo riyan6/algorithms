@@ -139,4 +139,46 @@ public class LinkList<T> {
         return -1;
     }
 
+    /**
+     * 反转整个链表
+     */
+    public void reverse() {
+        if (isEmpty()) {
+            return;
+        }
+        reverse(head.next);
+    }
+
+    /**
+     * 返回 反转指定的节点
+     * 解：
+     * 假设有[1,2,3,4]一个链表，对应 head-> 1 -> 2 -> 3 -> 4
+     * 调用 比如第一个reverse()函数，current值是1，然后由于1还有next值（2）
+     * 所以递归...如果current为2，还有next值（3）接着递归...直到current值为4,
+     * 没有next值，到了链表尾部。于是head指向 4（结构 head -> 4）返回结果
+     * 到达 reverse() current值为3的函数，4的next值指向3, 3的next值为null，返回3
+     * 到达 reverse() current值为2的函数,3的next值指向2，2的next值为null，返回2
+     * 到达 reverse() current值为1的函数,2的next值指向1，1的next值为null，返回1
+     *
+     * 可能就是以上分析过程，可能有些出入
+     *
+     * @param current
+     * @return
+     */
+    public Node reverse(Node current) {
+        if (current.next == null) {
+            // 如果到了链表结尾，则头部直接连接到当前节点（尾部）
+            head.next = current;
+            return current;
+        }
+        // 递归的反转当前current的下一个节点；返回值就是链表反转后，当前节点的上一个节点。
+        Node prev = reverse(current.next);
+        // 让返回的节点的下一个节点变成当前节点current
+        prev.next = current;
+        // 把当前节点的下一个节点设置为null
+        current.next = null;
+        // 返回
+        return current;
+    }
+
 }
