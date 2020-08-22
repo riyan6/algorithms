@@ -3,7 +3,7 @@ package org.algorithm.linear.single;
 /**
  * @Author caopz
  * @Date 2020/8/22
- * @Description: 链表、
+ * @Description: 单向链表、
  */
 public class LinkList<T> {
 
@@ -80,19 +80,63 @@ public class LinkList<T> {
     /**
      * 在线性表的i处添加元素
      *
-     * @param i
+     * @param n
      * @param t
      */
-    public void insert(int i, T t) {
-        // 7 5 1 6 9 2 -> 7 5 1 0 6 9 2 从第四个处开始插入 0
+    public void insert(int n, T t) {
         // 获取到i处前一个元素
-        Node node = head;
+        Node prev = head;
+        for (int i = 0; i < n; i++) {
+            prev = prev.next;
+        }
+        // 找到n处的元素
+        Node current = prev.next;
         // 创建新元素
+        Node<T> newNode = new Node<>(t, current);
+        // n - 1处元素指向新元素
+        prev.next = newNode;
+        // 元素数量加一
+        len++;
+    }
 
-        // i - 1处元素指向新元素
+    /**
+     * 删除指定位置的元素
+     *
+     * @param n
+     * @return
+     */
+    public T remove(int n) {
+        // 获取指定元素的上一个节点
+        Node prev = head;
+        for (int i = 0; i < n; i++) {
+            prev = prev.next;
+        }
+        // 获取到n处的节点
+        Node current = prev.next;
+        // 获取到指定元素的下一个节点
+        Node next = current.next;
+        // 让 n处的元素上一个节点 指向它的下一个节点
+        prev.next = next;
+        // 返回结果
+        return (T) current.val;
+    }
 
-        // 新元素指向原来i处后的元素
-
+    /**
+     * 获取元素首次在链表中出现的位置
+     *
+     * @param t
+     * @return
+     */
+    public int indexOf(T t) {
+        // 从头节点开始依次遍历
+        Node node = head;
+        for (int i = 0; node.next != null; i++) {
+            node = node.next;
+            if (node.equals(t)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
