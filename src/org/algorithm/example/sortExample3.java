@@ -4,30 +4,26 @@ import java.util.Arrays;
 
 /**
  * @Author caopz
- * @Date 2020/8/25
- * @Description: 825排序练习
+ * @Date 2020/8/29
+ * @Description: 排序练习3
  */
-public class sortExample {
+public class sortExample3 {
 
     public static void main(String[] args) {
-         
-        // 5 7 1 6 9 2
-        // 5 1 7 6 9 2
-        // 1 5 7 6 9 2
-        // ...
+        int[] arr = {7, 5, 1, 6, 9, 2};
 //        selectionSort(arr);
-//        insertionSort(arr);
+//        insertSort(arr);
         shellSort(arr);
         System.out.println(Arrays.toString(arr));
     }
 
+    // 希尔排序
     private static void shellSort(int[] arr) {
         int h = 1;
         while (h < arr.length / 3) {
-            h = 3 * h + 1;
+            h = h * 3 + 1;
         }
         while (h >= 1) {
-            // 将数组变为h有序
             for (int i = h; i < arr.length; i++) {
                 for (int j = i; j >= h && arr[j - h] > arr[j]; j -= h) {
                     int temp = arr[j];
@@ -39,14 +35,8 @@ public class sortExample {
         }
     }
 
-    /**
-     * 插入排序
-     * 对付小规模数组有效
-     * 或者部分元素有序 有奇效
-     *
-     * @param arr
-     */
-    private static void insertionSort(int[] arr) {
+    // 插入排序
+    private static void insertSort(int[] arr) {
         for (int i = 1; i < arr.length; i++) {
             for (int j = i; j > 0 && arr[j - 1] > arr[j]; j--) {
                 int temp = arr[j];
@@ -56,27 +46,20 @@ public class sortExample {
         }
     }
 
-    /**
-     * 选择排序
-     *
-     * @param arr
-     */
+
+    // 选择排序
     private static void selectionSort(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
-            // 假设最小值下标为0
-            int min = i;
+            int minIndex = i;
             for (int j = i + 1; j < arr.length; j++) {
-                if (arr[min] > arr[j]) {
-                    // 说明min不是最小值的下标
-                    min = j;
+                if (arr[minIndex] > arr[j]) {
+                    minIndex = j;
                 }
             }
-            // 交换位置
-            int temp = arr[min];
-            arr[min] = arr[i];
-            arr[i] = temp;
+            int temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
         }
     }
-
 
 }
