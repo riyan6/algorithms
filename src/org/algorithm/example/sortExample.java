@@ -17,8 +17,8 @@ public class sortExample {
         // ...
 //        selectionSort(arr);
 //        insertionSort(arr);
-        shellSort(arr);
-        System.out.println(Arrays.toString(arr));
+//        shellSort(arr);
+//        System.out.println(Arrays.toString(arr));
     }
 
     private static void shellSort(int[] arr) {
